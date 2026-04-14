@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login App</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #00adb5;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      color: #00adb5;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="app"></div>
+
+<script>
+function showLogin() {
+  document.getElementById("app").innerHTML = `
+    <h2>Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Belum punya akun? <a onclick="showRegister()">Daftar</a></p>
+  `;
+}
+
+function showRegister() {
+  document.getElementById("app").innerHTML = `
+    <h2>Daftar</h2>
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="password" id="regPass" placeholder="Password">
+    <button onclick="register()">Daftar</button>
+    <p>Sudah punya akun? <a onclick="showLogin()">Login</a></p>
+  `;
+}
+
+function showHome() {
+  document.getElementById("app").innerHTML = `
+    <h1>Selamat Datang!</h1>
+    <button onclick="logout()">Logout</button>
+  `;
+}
+
+function register() {
+  let username = document.getElementById("regUser").value;
+  let password = document.getElementById("regPass").value;
+
+  localStorage.setItem("username", username);
+  localStorage.setItem("password", password);
+
+  alert("Berhasil daftar!");
+  showLogin();
+}
+
+function login() {
+  let username = document.getElementById("loginUser").value;
+  let password = document.getElementById("loginPass").value;
+
+  let storedUser = localStorage.getItem("username");
+  let storedPass = localStorage.getItem("password");
+
+  if (username === storedUser && password === storedPass) {
+    showHome();
+  } else {
+    alert("Username atau password salah!");
+  }
+}
+
+function logout() {
+  showLogin();
+}
+
+showLogin();
+</script>
+
+</body>
+</html>
